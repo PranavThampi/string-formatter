@@ -51,14 +51,16 @@ export function ConversionHistory({ history }: ConversionHistoryProps) {
       <CardContent>
         <ScrollArea className="h-[300px]">
           {history.map((item, index) => (
-            <div key={index} className="mb-4 p-2 border-b last:border-b-0">
+            <div key={index} className="mb-4 p-2 border-b last:border-b-0 dark:border-gray-700">
               <div className="flex justify-between items-start">
                 <div>
-                  <p className="text-sm text-gray-500">{new Date(item.timestamp).toLocaleString()}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">
+                    {new Date(item.timestamp).toLocaleString()}
+                  </p>
                   <p className="text-sm font-medium mt-1">Input: {item.input.substring(0, 50)}...</p>
                   <p className="text-sm font-medium mt-1">Output: {item.output.substring(0, 50)}...</p>
                 </div>
-                <Button variant="outline" size="sm" onClick={() => copyToClipboard(item.output)} className="ml-2">
+                <Button  size="sm" onClick={() => copyToClipboard(item.output)} className="ml-2">
                   <Copy className="h-4 w-4 mr-1" />
                   Copy
                 </Button>
