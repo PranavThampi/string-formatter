@@ -16,6 +16,7 @@ import { ThemeToggle } from "@/components/ThemeToggle"
 interface Conversion {
   input: string
   output: string
+  length: number
   timestamp: number
 }
 
@@ -27,6 +28,7 @@ export default function StringFormatter() {
   const [startChar, setStartChar] = useState("'")
   const [endChar, setEndChar] = useState("'")
   const [output, setOutput] = useState("")
+  const [length, setLength] = useState(0)
   const [history, setHistory] = useState<Conversion[]>([])
   const [useNewLine, setUseNewLine] = useState(false)
 
@@ -47,12 +49,16 @@ export default function StringFormatter() {
     const actualDelimiter = useNewLine ? "\n" : delimiter
     const strings = input.split(actualDelimiter)
     const formattedStrings = strings.map((s) => `${startChar}${s.trim()}${endChar}`)
-    const result = formattedStrings.join(",")
+    const uniqueStrings = Array.from(new Set(formattedStrings))
+    const result = uniqueStrings.join(",")
+    const length = uniqueStrings.length
     setOutput(result)
+    setLength(length)
 
     const newConversion: Conversion = {
       input,
       output: result,
+      length: length,
       timestamp: Date.now(),
     }
     updateHistory(newConversion)
@@ -161,6 +167,8 @@ export default function StringFormatter() {
               <div className="mt-4 p-2 bg-gray-100 dark:bg-gray-800 rounded">
                 <Label>Output:</Label>
                 <div className="mt-1 font-mono text-sm break-all">{output}</div>
+                <Label>Length:</Label>
+                <div className="mt-1 font-mono text-sm break-all">{length}</div>
               </div>
             )}
           </CardFooter>

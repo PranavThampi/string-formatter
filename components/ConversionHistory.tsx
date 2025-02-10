@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 interface Conversion {
   input: string;
   output: string;
+  length: number;
   timestamp: number;
 }
 
@@ -65,6 +66,9 @@ export function ConversionHistory({ history }: ConversionHistoryProps) {
                   </p>
                   <p className="text-sm font-medium mt-1">
                     Output: {item.output.substring(0, 50)}...
+                  </p>
+                  <p className="text-sm font-medium mt-1">
+                    Length: {item.length}
                   </p>
                 </div>
                 <Button
